@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 load_dotenv()
 LOCAL=1
 CLOUD=2
-db_selector = CLOUD
+db_selector = LOCAL
 
 if db_selector == LOCAL:
     db_user = os.getenv('LOCAL_DB_USER')
@@ -18,9 +18,9 @@ elif db_selector == CLOUD:
 
 
 db_config = {
-    'username': db_user,
-    'password': db_pass,
-    'database': db_name,
-    'host': cloud_sql_connection_name,
+    'username': "postgres",
+    'password': "5458",
+    'database': "postgres",
+    'host': "35.237.166.44",
     'port': 5432
 }
