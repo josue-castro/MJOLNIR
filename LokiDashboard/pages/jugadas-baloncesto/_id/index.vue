@@ -147,7 +147,7 @@
                 :id="action.key"
                 :event_id="event_id"
               />
-              <BaskteballGameAction
+              <BasketballGameAction 
                 v-else-if=" action.team === 'opponent' "
                 align="center"
                 justify="center"
@@ -180,6 +180,7 @@
                 :uprmAthletes="uprmRoster"
                 :oppAthletes="oppRoster"
                 team="UPRM"
+                
               />
             </v-container>
           </v-tab-item>
@@ -530,6 +531,7 @@ export default {
       }
       // If athlete is opponent, just return its name.
       if (team === "opponent") {
+        console.log(roster[athlete_index].name)
         return roster[athlete_index].name;
       }
       // Otherwise, build its name using the structure established by Odin.
@@ -575,6 +577,7 @@ export default {
       for (let index in roster) {
         if (roster[index].key == "athlete-" + athlete_id) {
           athlete_index = index;
+          
           continue;
         }
       }
