@@ -17,7 +17,8 @@ from handler.volleyball_event import VolleyballEventHandler
 from handler.soccer_event import SoccerEventHandler
 from handler.baseball_event import BaseballEventHandler
 from handler.sport import SportHandler
-from handler.pbp_handler import VolleyballPBPHandler
+from handler.voleyball_pbp_handler import VolleyballPBPHandler
+from handler.basketball_pbp_handler import BasketballPBPHandler
 from handler.match_based_event import MatchBasedEventHandler
 from handler.team import TeamHandler
 from handler.event_result import EventResultHandler
@@ -993,6 +994,9 @@ def pbp_sequence(sport):
     # Assign proper handler.
     if sport == "Voleibol":
         handler = VolleyballPBPHandler()
+    elif sport=="Baloncesto":
+         handler = BasketballPBPHandler()
+         
     else:
         return jsonify(Error="El deporte seleccionado no tiene cobertura jugada a jugada."), 400
 
@@ -1049,6 +1053,8 @@ def volleyball_pbp_set_current_set(sport):
     # Assign proper handler.
     if sport == "Voleibol":
         handler = VolleyballPBPHandler()
+    elif sport=="Baloncesto":
+         handler = BasketballPBPHandler()
     else:
         return jsonify(Error="El deporte seleccionado no tiene cobertura jugada a jugada."), 400
 
@@ -1084,6 +1090,9 @@ def pbp_set_color(sport):
     # Assign proper handler.
     if sport == "Voleibol":
         handler = VolleyballPBPHandler()
+    elif sport=="Baloncesto":
+         handler = BasketballPBPHandler()
+
     else:
         return jsonify(Error="El deporte seleccionado no tiene cobertura jugada a jugada."), 400
 
@@ -1113,6 +1122,8 @@ def pbp_roster(sport):
     # Assign proper handler.
     if sport == "Voleibol":
         handler = VolleyballPBPHandler()
+    elif sport=="Baloncesto":
+         handler = BasketballPBPHandler()
     else:
         return jsonify(Error="El deporte seleccionado no tiene cobertura jugada a jugada."), 400
 
@@ -1238,6 +1249,8 @@ def pbp_actions(sport):
     # Assign proper handler.
     if sport == "Voleibol":
         handler = VolleyballPBPHandler()
+    elif sport=="Baloncesto":
+         handler = BasketballPBPHandler()
     else:
         return jsonify(Error="El deporte seleccionado no tiene cobertura jugada a jugada."), 400
 
@@ -1294,6 +1307,8 @@ def pbp_end(sport):
     # Assign proper PBP handler.
     if sport == "Voleibol":
         handler = VolleyballPBPHandler()
+    elif sport=="Baloncesto":
+         handler = BasketballPBPHandler()
     else:
         return jsonify(Error="El deporte seleccionado no tiene cobertura jugada a jugada."), 400
 

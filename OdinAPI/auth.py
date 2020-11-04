@@ -111,7 +111,7 @@ def generateToken(username, permissions):
         'exp': datetime.datetime.utcnow()+datetime.timedelta(hours=3),
         'iat': datetime.datetime.utcnow()
     }
-    token = jwt.encode(payload, os.getenv('SECRET_KEY'), algorithm='HS256')
+    token = jwt.encode(payload, 'lol', algorithm='HS256')
     return f'Bearer {token.decode("UTF-8")}'
 
 
@@ -130,7 +130,7 @@ def verifyToken(token):
         A boolean value signifying if the token is valid or not.
     """
     try:
-        jwt.decode(token, os.getenv('SECRET_KEY'), algorithm='HS256')
+        jwt.decode(token, 'lol', algorithm='HS256')
         return True
     except:
         return False
@@ -150,6 +150,6 @@ def getTokenInfo(token):
         A boolean value signifying if the token is valid or not.
     """
     try:
-        return jwt.decode(token, os.getenv('SECRET_KEY'), algorithm='HS256')
+        return jwt.decode(token, 'lol', algorithm='HS256')
     except:
         return 'Token can\'t be retrieved.'
