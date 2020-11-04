@@ -36,7 +36,7 @@
     <v-card-actions class="justify-center"> 
       <v-spacer/>
       <v-btn v-if="hasPBP == true">Ver Play-by-Play</v-btn>
-      <v-btn v-if="sportName == 'Voleibol' & hasPBP == false">Añadir Play-by-Play</v-btn>
+      <v-btn v-if="(sportName == 'Voleibol'||sportName == 'Baloncesto') & hasPBP == false">Añadir Play-by-Play</v-btn>
     </v-card-actions>
   
 
