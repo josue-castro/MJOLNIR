@@ -74,7 +74,7 @@ class EventHandler:
         result['local_score'] = record[11]
         result['opponent_score'] = record[12]
 
-        if 'Voleibol' or 'Baloncesto' or 'Pelota' or 'Futbol' in record[7]:
+        if 'Voleibol' or 'Baloncesto' or 'Pelota' or 'Fútbol' in record[7]:
             result['hasPBP'] = self._check_pbp(record[0])
 
         return result
