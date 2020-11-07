@@ -14,11 +14,11 @@
             >
               <template v-slot:activator="{ on }">
                 <v-col md="3">
-                  <v-btn 
-                  color="primary_light" 
-                  class="white--text"
-                  @click="activateEventCreationForm"
-                  :disabled="!$store.state.userAuth.userPermissions[0]['13']"
+                  <v-btn
+                    color="primary_light"
+                    class="white--text"
+                    @click="activateEventCreationForm"
+                    :disabled="!$store.state.userAuth.userPermissions[0]['13']"
                   >
                     <v-icon left>mdi-plus</v-icon>Añadir Evento
                   </v-btn>
@@ -41,7 +41,12 @@
                     min-width="290px"
                   >
                     <template v-slot:activator="{ on }">
-                      <v-text-field v-model="date" label="Fecha del Evento" readonly v-on="on"></v-text-field>
+                      <v-text-field
+                        v-model="date"
+                        label="Fecha del Evento"
+                        readonly
+                        v-on="on"
+                      ></v-text-field>
                     </template>
                     <v-date-picker
                       v-model="date"
@@ -51,22 +56,39 @@
                       locale="es-419"
                     >
                       <v-spacer></v-spacer>
-                      <v-btn text color="primary" @click="dateMenu = false">Cancelar</v-btn>
-                      <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                      <v-btn text color="primary" @click="dateMenu = false"
+                        >Cancelar</v-btn
+                      >
+                      <v-btn text color="primary" @click="$refs.menu.save(date)"
+                        >OK</v-btn
+                      >
                     </v-date-picker>
                   </v-menu>
                 </v-list-item>
                 <v-list-item>
-                  <v-autocomplete v-model="sport" :items="sports" label="Deporte"></v-autocomplete>
+                  <v-autocomplete
+                    v-model="sport"
+                    :items="sports"
+                    label="Deporte"
+                  ></v-autocomplete>
                 </v-list-item>
                 <v-list-item>
-                  <v-select v-model="branch" :items="branches" label="Rama"></v-select>
+                  <v-select
+                    v-model="branch"
+                    :items="branches"
+                    label="Rama"
+                  ></v-select>
                 </v-list-item>
                 <v-list-item>
-                  <v-select v-model="locality" :items="localities" label="Localizacion"></v-select>
+                  <v-select
+                    v-model="locality"
+                    :items="localities"
+                    label="Localizacion"
+                  ></v-select>
                 </v-list-item>
                 <v-list-item>
-                  <v-checkbox v-model="eventHasPBP" label="Eventos con PBP"> </v-checkbox>
+                  <v-checkbox v-model="eventHasPBP" label="Eventos con PBP">
+                  </v-checkbox>
                 </v-list-item>
                 <v-list-item>
                   <v-card-actions>
@@ -91,34 +113,51 @@
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
                 <v-btn
-                  v-if="item.sport_name == 'Voleibol' & item.hasPBP"
+                  v-if="
+                    (item.sport_name == 'Voleibol' ||
+                      item.sport_name == 'Baloncesto' ||
+                      item.sport_name == 'Fútbol') & item.hasPBP
+                  "
                   color="primary"
                   outlined
                   small
                   v-on="on"
                   @click="goToPBPSequence(item)"
-                >Ver PBP</v-btn>
+                  >Ver PBP</v-btn
+                >
               </template>
               <span>Ver Play-by-Play</span>
             </v-tooltip>
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
                 <v-btn
-                  v-if="item.sport_name == 'Voleibol' & !item.hasPBP"
+                  v-if="
+                    (item.sport_name == 'Voleibol' ||
+                      item.sport_name == 'Baloncesto' ||
+                      item.sport_name == 'Fútbol') & !item.hasPBP
+                  "
                   color="primary"
                   outlined
                   small
                   v-on="on"
                   @click="createPBPSequence(item)"
                   :disabled="!$store.state.userAuth.userPermissions[3]['16']"
-                >Crear PBP</v-btn>
+                  >Crear PBP</v-btn
+                >
               </template>
               <span>Crear Play-by-Play</span>
             </v-tooltip>
-            <span class='text' v-if="item.sport_name !='Voleibol'">
+            <span
+              class="text"
+              v-if="
+                item.sport_name != 'Voleibol' &&
+                  item.sport_name != 'Baloncesto' &&
+                  item.sport_name != 'Fútbol'
+              "
+            >
               N/A
             </span>
-          </template> 
+          </template>
           <template v-slot:item.actions="{ item }">
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
@@ -127,7 +166,8 @@
                   class="mr-2 table-actions"
                   v-on="on"
                   @click="viewEvent(item.id)"
-                >mdi-eye-plus</v-icon>
+                  >mdi-eye-plus</v-icon
+                >
               </template>
               <span>Ver Evento</span>
             </v-tooltip>
@@ -140,7 +180,8 @@
                   v-on="on"
                   @click="editEvent(item)"
                   :disabled="!$store.state.userAuth.userPermissions[2]['15']"
-                >mdi-pencil</v-icon>
+                  >mdi-pencil</v-icon
+                >
               </template>
               <span>Editar Evento</span>
             </v-tooltip>
@@ -152,7 +193,8 @@
                   v-on="on"
                   @click="prepareEventToRemove(item.id)"
                   :disabled="!$store.state.userAuth.userPermissions[1]['14']"
-                >mdi-delete</v-icon>
+                  >mdi-delete</v-icon
+                >
               </template>
               <span>Borrar Evento</span>
             </v-tooltip>
@@ -176,12 +218,21 @@
 
         <AddEventModal :dialog.sync="dialogAdd" :trigger.sync="ready" />
 
-        <DeleteEventModal :dialog.sync="dialogDelete" :id="eid" :trigger.sync="ready" />
+        <DeleteEventModal
+          :dialog.sync="dialogDelete"
+          :id="eid"
+          :trigger.sync="ready"
+        />
 
         <v-dialog v-model="dialogPBP" persistent max-width="400">
           <v-card>
-            <v-card-title class="headline">Falta el nombre del oponente</v-card-title>
-            <v-card-text>Tienes que editar el evento y añadirle un nombre del oponente.</v-card-text>
+            <v-card-title class="headline"
+              >Falta el nombre del oponente</v-card-title
+            >
+            <v-card-text
+              >Tienes que editar el evento y añadirle un nombre del
+              oponente.</v-card-text
+            >
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="black" text @click="closePBPDialog()">Cerrar</v-btn>
@@ -235,13 +286,12 @@ export default {
       "Campo Traviesa",
       "Halterofilia",
       "Taekwondo",
-      "Porrismo",
-
+      "Porrismo"
     ],
     branches: ["Masculino", "Femenino", "Exhibición"],
     localities: ["Casa", "Afuera"],
-    filteredEvents:[],//This list is the one presented to the users
-    eid: 0,//This is the id of the event to be deleted.
+    filteredEvents: [], //This list is the one presented to the users
+    eid: 0, //This is the id of the event to be deleted.
     headers: [
       {
         text: "ID",
@@ -257,7 +307,7 @@ export default {
     ],
 
     //This will be used by the EditEventModal
-    editedItem:{
+    editedItem: {
       event_date: "",
       time: "",
       is_local: "",
@@ -269,7 +319,6 @@ export default {
       team_season_year: 0,
       id: 0
     }
-
   }),
 
   methods: {
@@ -282,12 +331,12 @@ export default {
     /**
      * Activates the AddEventModal dialog component.
      */
-    activateEventCreationForm(){
-      this.dialogAdd = true
+    activateEventCreationForm() {
+      this.dialogAdd = true;
     },
 
     /**
-     * Clears the filter fields 
+     * Clears the filter fields
      * and resets the filtered list
      * if filters have been applied.
      */
@@ -307,40 +356,37 @@ export default {
       }
     },
 
-
     /**
      * Returns false if events have been loaded and formated,
      * else it returns true after it formats the data of the events
      * list that have been loaded from the database.
-     * 
+     *
      */
-    loadingEvents(){      
-      if(this.events.length > 0){
-        if(this.ready){
-          return false
-        }
-        else{         
-          
-          this.filteredEvents = []
+    loadingEvents() {
+      if (this.events.length > 0) {
+        if (this.ready) {
+          return false;
+        } else {
+          this.filteredEvents = [];
           for (let i = 0; i < this.events.length; i++) {
             this.filteredEvents.push(this.events[i]);
             const parsedDate = new Date(Date.parse(this.events[i].event_date));
             const eDate = parsedDate.toISOString().substring(0, 10);
-            const time = parsedDate.getUTCHours() + ":" + parsedDate.getMinutes();
-            
+            const time =
+              parsedDate.getUTCHours() + ":" + parsedDate.getMinutes();
+
             this.filteredEvents[i].event_date = eDate;
             this.filteredEvents[i].time = time;
           }
           this.ready = true;
         }
+      } else {
+        return true;
       }
-      else{
-        return true
-      }
-    },    
-    
+    },
+
     /**
-     * Applies the filters selected 
+     * Applies the filters selected
      * by the user on the  viewable
      * events table.
      */
@@ -391,20 +437,18 @@ export default {
             this.filteredEvents.splice(i, 1);
             continue;
           }
-
         }
       }
-      this.menu = false
+      this.menu = false;
     },
 
-    
     /**
      * Routes the user to the event viewer page
-     * of the event with the id given as parameter 
+     * of the event with the id given as parameter
      * @param eventID The id of the event
      */
-    viewEvent(eventID){
-      this.$router.push('/evento/'+eventID)
+    viewEvent(eventID) {
+      this.$router.push("/evento/" + eventID);
     },
 
     /**
@@ -412,51 +456,50 @@ export default {
      * given as parameter.
      * @param event The event Object containg the information of the event to be edited.
      */
-    editEvent(event){ 
-      console.log(event)    
-      this.editedItem = Object.assign({},event)
-      this.dialogEdit = true      
+    editEvent(event) {
+      console.log(event);
+      this.editedItem = Object.assign({}, event);
+      this.dialogEdit = true;
     },
-    
 
     /**
      * Activates the DeleteEventModal using
      * the id of the event given as a parameter.
      * @param eventID The id of event to be removed
      */
-    prepareEventToRemove(eventID){
-      this.eid = eventID
-      this.dialogDelete = true
-    },    
+    prepareEventToRemove(eventID) {
+      this.eid = eventID;
+      this.dialogDelete = true;
+    },
 
     /**
      * Routes user to pbp sequence page.
      */
-    goToPBPSequence(event)
-    {
-      this.$router.push('/jugadas-'+event.sport_name.toLowerCase()+'/'+event.id)
+    goToPBPSequence(event) {
+      const sportName =
+        event.sport_name.toLowerCase() == "fútbol"
+          ? "futbol"
+          : event.sport_name.toLowerCase();
+      this.$router.push("/jugadas-" + sportName + "/" + event.id);
     },
 
     /**
      * Calls the start pbp sequence action
      */
-    createPBPSequence(event)
-    {
-      
-      if(event.opponent_name == null || event.opponent_name == '')
-        this.dialogPBP = true
-
-      else{
-        const eventJSON = {"sport_name":event.sport_name,"event_id":event.id}
-        this.startPBPSequence(eventJSON)
+    createPBPSequence(event) {
+      if (event.opponent_name == null || event.opponent_name == "")
+        this.dialogPBP = true;
+      else {
+        const eventJSON = { sport_name: event.sport_name, event_id: event.id };
+        this.startPBPSequence(eventJSON);
       }
     },
 
     /**
-     * Closes the pbp warning dialog 
+     * Closes the pbp warning dialog
      */
-    closePBPDialog(){
-      this.dialogPBP = false
+    closePBPDialog() {
+      this.dialogPBP = false;
     }
   },
 
