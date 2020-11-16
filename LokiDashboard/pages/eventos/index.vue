@@ -116,7 +116,7 @@
                   v-if="
                     (item.sport_name == 'Voleibol' ||
                       item.sport_name == 'Baloncesto' ||
-                      item.sport_name == 'Fútbol') & item.hasPBP
+                      item.sport_name == 'Futbol') & item.hasPBP
                   "
                   color="primary"
                   outlined
@@ -134,7 +134,7 @@
                   v-if="
                     (item.sport_name == 'Voleibol' ||
                       item.sport_name == 'Baloncesto' ||
-                      item.sport_name == 'Fútbol') & !item.hasPBP
+                      item.sport_name == 'Futbol') & !item.hasPBP
                   "
                   color="primary"
                   outlined
@@ -152,7 +152,7 @@
               v-if="
                 item.sport_name != 'Voleibol' &&
                   item.sport_name != 'Baloncesto' &&
-                  item.sport_name != 'Fútbol'
+                  item.sport_name != 'Futbol'
               "
             >
               N/A
@@ -275,7 +275,7 @@ export default {
       "Voleibol",
       "Baloncesto",
       "Atletismo",
-      "Fútbol",
+      "Futbol",
       "Softbol",
       "Beisbol",
       "Tenis de Mesa",
@@ -476,11 +476,9 @@ export default {
      * Routes user to pbp sequence page.
      */
     goToPBPSequence(event) {
-      const sportName =
-        event.sport_name.toLowerCase() == "fútbol"
-          ? "futbol"
-          : event.sport_name.toLowerCase();
-      this.$router.push("/jugadas-" + sportName + "/" + event.id);
+      this.$router.push(
+        "/jugadas-" + event.sport_name.toLowerCase() + "/" + event.id
+      );
     },
 
     /**

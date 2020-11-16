@@ -997,7 +997,7 @@ def pbp_sequence(sport):
         handler = VolleyballPBPHandler()
     elif sport=="Baloncesto":
         handler = BasketballPBPHandler()
-    elif sport=="Fútbol":
+    elif sport=="Futbol":
         handler = SoccerPBPHandler()
     else:
         return jsonify(Error="El deporte seleccionado no tiene cobertura jugada a jugada."), 400
@@ -1057,7 +1057,7 @@ def volleyball_pbp_set_current_set(sport):
         handler = VolleyballPBPHandler()
     elif sport=="Baloncesto":
         handler = BasketballPBPHandler()
-    elif sport=="Fútbol":
+    elif sport=="Futbol":
         handler = SoccerPBPHandler()
     else:
         return jsonify(Error="El deporte seleccionado no tiene cobertura jugada a jugada."), 400
@@ -1096,7 +1096,7 @@ def pbp_set_color(sport):
         handler = VolleyballPBPHandler()
     elif sport=="Baloncesto":
         handler = BasketballPBPHandler()
-    elif sport=="Fútbol":
+    elif sport=="Futbol":
         handler = SoccerPBPHandler()
 
     else:
@@ -1130,7 +1130,7 @@ def pbp_roster(sport):
         handler = VolleyballPBPHandler()
     elif sport=="Baloncesto":
         handler = BasketballPBPHandler()
-    elif sport=="Fútbol":
+    elif sport=="Futbol":
         handler = SoccerPBPHandler()
     else:
         return jsonify(Error="El deporte seleccionado no tiene cobertura jugada a jugada."), 400
@@ -1258,7 +1258,9 @@ def pbp_actions(sport):
     if sport == "Voleibol":
         handler = VolleyballPBPHandler()
     elif sport=="Baloncesto":
-         handler = BasketballPBPHandler()
+        handler = BasketballPBPHandler()
+    elif sport=="Futbol":
+        handler = SoccerPBPHandler()
     else:
         return jsonify(Error="El deporte seleccionado no tiene cobertura jugada a jugada."), 400
 
@@ -1317,6 +1319,8 @@ def pbp_end(sport):
         handler = VolleyballPBPHandler()
     elif sport=="Baloncesto":
          handler = BasketballPBPHandler()
+    elif sport=="Futbol":
+        handler = SoccerPBPHandler()
     else:
         return jsonify(Error="El deporte seleccionado no tiene cobertura jugada a jugada."), 400
 

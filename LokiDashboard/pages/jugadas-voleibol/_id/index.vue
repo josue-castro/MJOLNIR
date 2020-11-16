@@ -1,7 +1,12 @@
 <template>
   <v-container>
     <v-row v-if="loading" justify="center">
-      <v-progress-circular :active="loading" indeterminate :size="50" color="primary"></v-progress-circular>
+      <v-progress-circular
+        :active="loading"
+        indeterminate
+        :size="50"
+        color="primary"
+      ></v-progress-circular>
     </v-row>
     <ErrorCard
       v-if="init_error && !loading"
@@ -12,7 +17,7 @@
     <v-card fixed v-if="!init_error && !loading">
       <v-toolbar color="green darken-1" dark flat>
         <v-spacer />
-        <v-toolbar-title class="title">{{sportName}}</v-toolbar-title>
+        <v-toolbar-title class="title">{{ sportName }}</v-toolbar-title>
         <v-spacer />
       </v-toolbar>
       <v-container>
@@ -90,7 +95,8 @@
                       width="175"
                       @click.native="on_notification_pressed()"
                     >
-                      <v-icon class="mx-1">mdi-android-messages</v-icon>Notificación
+                      <v-icon class="mx-1">mdi-android-messages</v-icon
+                      >Notificación
                     </v-btn>
                   </template>
                   <span>Crear notificación de juego</span>
@@ -153,7 +159,9 @@
                 justify="center"
                 :action_type="action.action_type"
                 :message="action.text"
-                :athlete_number="findAthleteNumber(action.athlete_id, oppRoster)"
+                :athlete_number="
+                  findAthleteNumber(action.athlete_id, oppRoster)
+                "
                 :athlete_name="findAthleteName(action.athlete_id, 'opponent')"
                 :athlete_id="action.athlete_id"
                 :athlete_img="action.athlete_img"
@@ -170,7 +178,9 @@
                 justify="center"
                 :action_type="action.action_type"
                 :message="action.text"
-                :athlete_number="findAthleteNumber(action.athlete_id, uprmRoster)"
+                :athlete_number="
+                  findAthleteNumber(action.athlete_id, uprmRoster)
+                "
                 :athlete_name="findAthleteName(action.athlete_id, 'uprm')"
                 :athlete_img="findAthleteImg(action.athlete_id, uprmRoster)"
                 :athlete_id="action.athlete_id"
@@ -237,8 +247,8 @@
               <v-tabs centered :color="uprm_color">
                 <v-tabs-slider :color="uprm_color" />
 
-                <v-tab>{{uprm_team_name}}</v-tab>
-                <v-tab>{{opponentName}}</v-tab>
+                <v-tab>{{ uprm_team_name }}</v-tab>
+                <v-tab>{{ opponentName }}</v-tab>
                 <v-tab-item>
                   <VolleyballStatistics :volleyball_stats="uprmStatistics" />
                 </v-tab-item>
@@ -309,27 +319,29 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="gray darken-3" text @click="reset_notification()">Cerrar</v-btn>
+              <v-btn color="gray darken-3" text @click="reset_notification()"
+                >Cerrar</v-btn
+              >
               <v-btn
                 color="primary darken-1"
                 :loading="button_loading"
                 text
                 @click.native="send_notification()"
-              >Enviar</v-btn>
+                >Enviar</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-form>
       </v-dialog>
       <v-dialog v-model="end_pbp_dialog" persistent max-width="350">
         <v-card>
-          <v-card-title
-            class="text-center"
-            style="word-break: normal;"
-          >Terminar Secuencia de Jugadas</v-card-title>
-          <v-card-text
-            class="subtitle-1"
-            style="word-break: normal;"
-          >Terminar una secuencia de jugadas es irreversible. ¿Aún que desea terminar la secuencia de jugadas?</v-card-text>
+          <v-card-title class="text-center" style="word-break: normal;"
+            >Terminar Secuencia de Jugadas</v-card-title
+          >
+          <v-card-text class="subtitle-1" style="word-break: normal;"
+            >Terminar una secuencia de jugadas es irreversible. ¿Aún que desea
+            terminar la secuencia de jugadas?</v-card-text
+          >
           <v-row>
             <v-col>
               <v-checkbox
@@ -342,24 +354,37 @@
           </v-row>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="gray darken-3" text @click="clear_end_pbp()">No</v-btn>
-            <v-btn color="green darken-1" :disabled="!terms" text @click="startEndPBPSequence()">Sí</v-btn>
+            <v-btn color="gray darken-3" text @click="clear_end_pbp()"
+              >No</v-btn
+            >
+            <v-btn
+              color="green darken-1"
+              :disabled="!terms"
+              text
+              @click="startEndPBPSequence()"
+              >Sí</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-dialog>
       <v-dialog v-model="color_dialog" persistent max-width="300">
         <v-card>
-          <v-card-title class="text-center" style="word-break: normal;">Color del Equipo Oponente</v-card-title>
+          <v-card-title class="text-center" style="word-break: normal;"
+            >Color del Equipo Oponente</v-card-title
+          >
           <v-color-picker v-model="color" show-swatches></v-color-picker>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="gray darken-3" text @click="cancelColorUpdate()">Cancelar</v-btn>
+            <v-btn color="gray darken-3" text @click="cancelColorUpdate()"
+              >Cancelar</v-btn
+            >
             <v-btn
               color="green darken-1"
               text
               :loading="button_loading"
               @click="updateColor()"
-            >Guardar</v-btn>
+              >Guardar</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-dialog>

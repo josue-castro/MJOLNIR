@@ -343,15 +343,13 @@ export default {
     },
 
     plays: [
-      "Tiro Libre",
-      "Tiro de Campo",
-      "Tiro de tres",
+      "Gol",
+      "Tiro a Portería",
       "Asistencia",
-      "Robo de balon",
-      "Tapón",
-      "Rebote",
-      "Perdida de balón",
-      "Falta"
+      "Atajada",
+      "Falta",
+      "Tarjeta Amarilla",
+      "Tarjeta Roja"
     ],
 
     current_team: null,
@@ -361,22 +359,20 @@ export default {
     game_actions_map: {
       Notification: "Notificación",
       Notificación: "Notification",
-      Freethrow: "Tiro Libre",
-      "Tiro Libre": "freethrow",
-      "2Points": "Tiro de Campo Anotado",
-      "Tiro de Campo": "2Points",
-      "3Points": "Tiro de Tres",
-      "Tiro de tres": "threepoints",
+      Goal: "Gol",
+      Gol: "Goal",
+      GoalAttempt: "Tiro a Portería",
+      "Tiro a Portería": "GoalAttempt",
       Assist: "Asistencia",
       Asistencia: "Assist",
-      Bloqueo: "Blocks",
-      Blocks: "Tapón",
-      Steals: "Robo",
-      Rebound: "Rebote",
-      Turnover: "Perdida de balón",
-      "Perdida de balón": "Turnover",
+      Tackle: "Atajada",
+      Atajada: "Tackle",
       Foul: "Falta",
-      Falta: "Foul"
+      Falta: "Foul",
+      YellowCard: "Tarjeta Amarilla",
+      "Tarjeta Amarilla": "YellowCard",
+      RedCard: "Tarjeta Roja",
+      "Tarjeta Roja": "RedCard"
     },
 
     // Rules and placeholders.
@@ -389,8 +385,8 @@ export default {
   }),
   methods: {
     ...mapActions({
-      updateGameAction: "BasketballPBP/updateGameAction",
-      removeGameAction: "BasketballPBP/removeGameAction"
+      updateGameAction: "soccerPBP/updateGameAction",
+      removeGameAction: "soccerPBP/removeGameAction"
     }),
 
     // Setup v-models for editting a notification.
@@ -524,43 +520,6 @@ export default {
         this.edit_play_dialog = false;
       }
       this.button_loading = false;
-    },
-
-    map_action(action_name) {
-      switch (action_name) {
-        case "Notification":
-          return "Notificación";
-
-        case "Freethrow":
-          return "Tiro Libre";
-
-        case "twopoints":
-          return "Tiro de Campo";
-
-        case "threepoints":
-          return "Tiro de Tres";
-
-        case "Assist":
-          return "Asistencia";
-
-        case "Blocks":
-          return "tapón";
-
-        case "Steals":
-          return "Robo";
-
-        case "Rebounds":
-          return "Rebote";
-
-        case "Turnovers":
-          return "Perdida de Balón";
-
-        case "Foul":
-          return "Falta";
-
-        default:
-          return "Acción Desconocida";
-      }
     },
 
     // Given an item (UPRM ATHLETE), return its name.

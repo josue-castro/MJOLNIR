@@ -22,7 +22,7 @@
       </v-toolbar>
       <v-container>
         <v-row align="center" justify="center">
-          <VolleyballScore
+          <SoccerScore
             :uprm_team="uprm_team_name"
             :opp_team="opponentName"
             :uprm_score="uprmScore"
@@ -64,7 +64,7 @@
                 <v-card-title>Administrador de Jugadas</v-card-title>
               </v-row>
               <v-row>
-                <VolleyballPBPActionsAdder
+                <SoccerPBPActionsAdder
                   :event_id="event_id"
                   :uprm_team_name="uprm_team_name"
                   :opp_team_name="opponentName"
@@ -140,7 +140,7 @@
               <v-card-title>Lista de Jugadas</v-card-title>
             </v-row>
             <v-container v-for="action in gameActions" :key="action.key + 500">
-              <VolleyballGameAction
+              <SoccerGameAction
                 v-if="action.action_type === notification"
                 align="center"
                 justify="center"
@@ -153,7 +153,7 @@
                 :id="action.key"
                 :event_id="event_id"
               />
-              <VolleyballGameAction
+              <SoccerGameAction
                 v-else-if="action.team === opp_keyword"
                 align="center"
                 justify="center"
@@ -172,7 +172,7 @@
                 :oppAthletes="oppRoster"
                 team="Oponente"
               />
-              <VolleyballGameAction
+              <SoccerGameAction
                 v-else
                 align="center"
                 justify="center"
@@ -197,63 +197,16 @@
           <v-tab-item>
             <v-spacer />
             <v-container>
-              <v-row align="center" justify="center">
-                <v-card-title>ANOTACIONES POR PARCIAL</v-card-title>
-              </v-row>
-
-              <v-row>
-                <v-col>
-                  <v-simple-table>
-                    <template v-slot:default>
-                      <thead>
-                        <tr>
-                          <th class="text-center">EQUIPO</th>
-                          <th class="text-center">PARCIAL 1</th>
-                          <th class="text-center">PARCIAL 2</th>
-                          <th class="text-center">PARCIAL 3</th>
-                          <th class="text-center">PARCIAL 4</th>
-                          <th class="text-center">PARCIAL 5</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr :key="2525">
-                          <td class="text-center">{{ uprm_team_name }}</td>
-                          <td class="text-center">{{ uprmSets[0] }}</td>
-                          <td class="text-center">{{ uprmSets[1] }}</td>
-                          <td class="text-center">{{ uprmSets[2] }}</td>
-                          <td class="text-center">{{ uprmSets[3] }}</td>
-                          <td class="text-center">{{ uprmSets[4] }}</td>
-                        </tr>
-                        <tr :key="2526">
-                          <td class="text-center">{{ opponentName }}</td>
-                          <td class="text-center">{{ oppSets[0] }}</td>
-                          <td class="text-center">{{ oppSets[1] }}</td>
-                          <td class="text-center">{{ oppSets[2] }}</td>
-                          <td class="text-center">{{ oppSets[3] }}</td>
-                          <td class="text-center">{{ oppSets[4] }}</td>
-                        </tr>
-                      </tbody>
-                    </template>
-                  </v-simple-table>
-                </v-col>
-              </v-row>
-
-              <v-row>
-                <v-col>
-                  <v-divider class="mx-4" horizontal></v-divider>
-                </v-col>
-              </v-row>
-
               <v-tabs centered :color="uprm_color">
                 <v-tabs-slider :color="uprm_color" />
 
                 <v-tab>{{ uprm_team_name }}</v-tab>
                 <v-tab>{{ opponentName }}</v-tab>
                 <v-tab-item>
-                  <VolleyballStatistics :volleyball_stats="uprmStatistics" />
+                  <SoccerStatistics :soccer_stats="uprmStatistics" />
                 </v-tab-item>
                 <v-tab-item>
-                  <VolleyballStatistics :volleyball_stats="oppStatistics" />
+                  <SoccerStatistics :soccer_stats="oppStatistics" />
                 </v-tab-item>
               </v-tabs>
             </v-container>
@@ -393,22 +346,22 @@
 </template>
 
 <script>
-import VolleyballScore from "../../../components/VolleyballScore";
-import VolleyballStatistics from "../../../components/VolleyballStatistics";
+import SoccerScore from "../../../components/SoccerScore";
+import SoccerStatistics from "../../../components/SoccerStatistics";
 import VolleyballScoreDisplayOnly from "../../../components/VolleyballScoreDisplayOnly";
 import PBPRosterEntry from "../../../components/PBPRosterEntry";
-import VolleyballGameAction from "../../../components/VolleyballGameAction";
-import VolleyballPBPActionsAdder from "../../../components/VolleyballPBPActionsAdder";
+import SoccerGameAction from "../../../components/SoccerGameAction";
+import SoccerPBPActionsAdder from "../../../components/SoccerPBPActionsAdder";
 import ErrorCard from "../../../components/PBP/ErrorCard";
 import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
-    VolleyballScore,
-    VolleyballStatistics,
+    SoccerScore,
+    SoccerStatistics,
     VolleyballScoreDisplayOnly,
     PBPRosterEntry,
-    VolleyballGameAction,
-    VolleyballPBPActionsAdder,
+    SoccerGameAction,
+    SoccerPBPActionsAdder,
     ErrorCard
   },
   data: () => ({
@@ -430,28 +383,13 @@ export default {
     statistics_headers: [
       { text: "Número", value: "number", align: "center" },
       { text: "Nombre", value: "name", align: "center" },
-      { text: "Puntos de Ataque", value: "killPoints", align: "center" },
-      { text: "Errores de Ataque", value: "attackErrors", align: "center" },
-      { text: "Servicios Directos", value: "aces", align: "center" },
-      { text: "Errores de Servicio", value: "serviceErrors", align: "center" },
-      { text: "Bloqueos", value: "blocks", align: "center" },
-      { text: "Puntos de Bloqueo", value: "blockingPoints", align: "center" },
-      {
-        text: "Errores de Bloqueo",
-        value: "blockingErrors",
-        align: "center"
-      },
-      { text: "Asistencias", value: "assists", align: "center" },
-      {
-        text: "Bompeos/Recepciones",
-        value: "digs",
-        align: "center"
-      },
-      {
-        text: "Errores de Recepción",
-        value: "receptionErrors",
-        align: "center"
-      }
+      { text: "Goles", value: "Goal", align: "center" },
+      { text: "Tiros a Portería", value: "GoalAttempt", align: "center" },
+      { text: "Asistencias", value: "Assist", align: "center" },
+      { text: "Atajadas", value: "Tackle", align: "center" },
+      { text: "Faltas", value: "Foul", align: "center" },
+      { text: "Tarjetas Amarillas", value: "YellowCard", align: "center" },
+      { text: "Tarjetas Rojas", value: "RedCard", align: "center" }
     ],
 
     event_id: Number,
@@ -466,34 +404,10 @@ export default {
         (!!v && v.length > 0 && v.length <= 100) ||
         "Las notificaciones deben tener entre 1 y 100 caracteres."
     ],
-    plays_map: [
-      { eng: "kills", esp: "Puntos de Ataque" },
-      { eng: "attackErrors", esp: "Errores de Ataque" },
-      { eng: "aces", esp: "Servicios Directos" },
-      { eng: "serviceError", esp: "Errores de Servicio" },
-      { eng: "blocks", esp: "Bloqueos" },
-      { eng: "blockingPoints", esp: "Puntos de Bloqueo" },
-      { eng: "blockingErrors", esp: "Errores de Bloqueo" },
-      { eng: "assists", esp: "Asistencias" },
-      { eng: "digs", esp: "Bompeos" },
-      { eng: "receptionErrors", esp: "Errores de Recepción" }
-    ],
     uprm_color: "primary",
     notification: "Notification",
     uprm_team_name: "uprm",
-    opp_keyword: "opponent",
-    plays_map: [
-      { eng: "kills", esp: "Puntos de Ataque" },
-      { eng: "attackErrors", esp: "Errores de Ataque" },
-      { eng: "aces", esp: "Servicios Directos" },
-      { eng: "serviceError", esp: "Errores de Servicio" },
-      { eng: "blocks", esp: "Bloqueos" },
-      { eng: "blockingPoints", esp: "Puntos de Bloqueo" },
-      { eng: "blockingErrors", esp: "Errores de Bloqueo" },
-      { eng: "assists", esp: "Asistencias" },
-      { eng: "digs", esp: "Bompeos" },
-      { eng: "receptionErrors", esp: "Errores de Recepción" }
-    ]
+    opp_keyword: "opponent"
   }),
   methods: {
     sendAdjust(team_name, adjust_no) {
@@ -506,26 +420,26 @@ export default {
     },
     // Functions for init/detach callbacks for maintaining data models based on Firebase updates.
     ...mapActions({
-      getEvent: "volleyballPBP/getEvent",
-      getValidUPRMRoster: "volleyballPBP/getValidUPRMRoster",
-      handleSetScores: "volleyballPBP/handleSetScores",
-      handleCurrentSet: "volleyballPBP/handleCurrentSet",
-      handleUPRMRoster: "volleyballPBP/handleUPRMRoster",
-      handleOPPRoster: "volleyballPBP/handleOPPRoster",
-      handleGameOver: "volleyballPBP/handleGameOver",
-      handleOppColor: "volleyballPBP/handleOppColor",
-      handleGameActions: "volleyballPBP/handleGameActions",
-      detachSetScores: "volleyballPBP/detachSetScores",
-      detachCurrentSet: "volleyballPBP/detachCurrentSet",
-      detachUPRMRoster: "volleyballPBP/detachUPRMRoster",
-      detachOPPRoster: "volleyballPBP/detachOPPRoster",
-      detachGameOver: "volleyballPBP/detachGameOver",
-      detachOppColor: "volleyballPBP/detachOppColor",
-      detachGameActions: "volleyballPBP/detachGameActions",
-      sendGameAction: "volleyballPBP/sendGameAction",
-      endPBPSequence: "volleyballPBP/endPBPSequence",
-      clearPBPState: "volleyballPBP/clearPBPState",
-      updateOpponentColor: "volleyballPBP/updateOpponentColor"
+      getEvent: "soccerPBP/getEvent",
+      getValidUPRMRoster: "soccerPBP/getValidUPRMRoster",
+      handleSetScores: "soccerPBP/handleSetScores",
+      handleCurrentSet: "soccerPBP/handleCurrentSet",
+      handleUPRMRoster: "soccerPBP/handleUPRMRoster",
+      handleOPPRoster: "soccerPBP/handleOPPRoster",
+      handleGameOver: "soccerPBP/handleGameOver",
+      handleOppColor: "soccerPBP/handleOppColor",
+      handleGameActions: "soccerPBP/handleGameActions",
+      detachSetScores: "soccerPBP/detachSetScores",
+      detachCurrentSet: "soccerPBP/detachCurrentSet",
+      detachUPRMRoster: "soccerPBP/detachUPRMRoster",
+      detachOPPRoster: "soccerPBP/detachOPPRoster",
+      detachGameOver: "soccerPBP/detachGameOver",
+      detachOppColor: "soccerPBP/detachOppColor",
+      detachGameActions: "soccerPBP/detachGameActions",
+      sendGameAction: "soccerPBP/sendGameAction",
+      endPBPSequence: "soccerPBP/endPBPSequence",
+      clearPBPState: "soccerPBP/clearPBPState",
+      updateOpponentColor: "soccerPBP/updateOpponentColor"
     }),
     startEndPBPSequence() {
       // Set payload format.
@@ -649,28 +563,28 @@ export default {
   computed: {
     // Functions for getting values in the data models.
     ...mapGetters({
-      uprmSets: "volleyballPBP/uprmSets",
-      oppSets: "volleyballPBP/oppSets",
-      currentUPRMSet: "volleyballPBP/currentUPRMSet",
-      currentOppSet: "volleyballPBP/currentOppSet",
-      currentSet: "volleyballPBP/currentSet",
-      uprmScore: "volleyballPBP/uprmScore",
-      oppScore: "volleyballPBP/oppScore",
-      uprmRoster: "volleyballPBP/uprmRoster",
-      oppRoster: "volleyballPBP/oppRoster",
-      gameOver: "volleyballPBP/gameOver",
-      oppColor: "volleyballPBP/oppColor",
-      gameActions: "volleyballPBP/gameActions",
-      uprmStatistics: "volleyballPBP/uprmStatistics",
-      oppStatistics: "volleyballPBP/oppStatistics",
-      uprmAthleteStatistics: "volleyballPBP/uprmAthleteStatistics",
-      oppAthleteStatistics: "volleyballPBP/oppAthleteStatistics",
-      sportName: "volleyballPBP/sportName",
-      hasPBP: "volleyballPBP/hasPBP",
-      teamId: "volleyballPBP/teamId",
-      validUPRMRoster: "volleyballPBP/validUPRMRoster",
-      branch: "volleyballPBP/branch",
-      opponentName: "volleyballPBP/opponentName"
+      uprmSets: "soccerPBP/uprmSets",
+      oppSets: "soccerPBP/oppSets",
+      currentUPRMSet: "soccerPBP/currentUPRMSet",
+      currentOppSet: "soccerPBP/currentOppSet",
+      currentSet: "soccerPBP/currentSet",
+      uprmScore: "soccerPBP/uprmScore",
+      oppScore: "soccerPBP/oppScore",
+      uprmRoster: "soccerPBP/uprmRoster",
+      oppRoster: "soccerPBP/oppRoster",
+      gameOver: "soccerPBP/gameOver",
+      oppColor: "soccerPBP/oppColor",
+      gameActions: "soccerPBP/gameActions",
+      uprmStatistics: "soccerPBP/uprmStatistics",
+      oppStatistics: "soccerPBP/oppStatistics",
+      uprmAthleteStatistics: "soccerPBP/uprmAthleteStatistics",
+      oppAthleteStatistics: "soccerPBP/oppAthleteStatistics",
+      sportName: "soccerPBP/sportName",
+      hasPBP: "soccerPBP/hasPBP",
+      teamId: "soccerPBP/teamId",
+      validUPRMRoster: "soccerPBP/validUPRMRoster",
+      branch: "soccerPBP/branch",
+      opponentName: "soccerPBP/opponentName"
     })
   },
   async beforeMount() {
@@ -731,7 +645,7 @@ export default {
     }
 
     // Validate the PBP sequence corresponds to Volleyball.
-    if (this.sportName != "Fútbol") {
+    if (this.sportName != "Futbol") {
       this.error_header = "Deporte Incorrecto";
       this.error_message =
         "Este deporte no está cubierto bajo la funcionalidad de Play-by-Play.";
